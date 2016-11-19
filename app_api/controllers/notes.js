@@ -42,7 +42,17 @@ module.exports.notesUpdateOne = function (req, res){
     sendJsonResponse(res, 200, {"status" : "success"});
 };
 module.exports.notesDeleteOne = function (req, res){
-    sendJsonResponse(res, 200, {"status" : "success"});
+    var id = req.params.id;
+    var title = req.params.title;
+    console.log("Finding notes for User: " + id + " removing note with title: " + title);
+    db.collection('notesList', function(err,collection){
+        collection.update({'_id': id}, {$pull: {"notes" : {"title":title}}},function(err,item) {
+            console.log("Note with title: " + title + " was removed");
+            res.status(200);
+            res.redirect('/');
+        })
+
+    })
 };
 
 module.exports.notesFindById = function (req, res) {
@@ -53,11 +63,11 @@ module.exports.notesFindById = function (req, res) {
         collection.findOne({'_id': id},function(err, item) {
             var oneNote;
             for(var x = 0; x < item.notes.length; x++){
-                console.log(item.notes[x].title)
+                console.log(item.notes[x].title);
                 if (item.notes[x].title == title){oneNote = item.notes[x]}
             }
             res.status(200);
             res.send(oneNote);
         });
     });
-}
+};
