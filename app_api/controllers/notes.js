@@ -29,7 +29,7 @@ module.exports.notesCreateOne = function (req, res){
     console.log("Creating new note for " + id);
     db.collection('notesList', function (err, collection) {
         collection.update({'_id': id}, {$push: {"notes" : {"title":title, "contents": ""} }}, {w:1}, function(err,item){
-            console.log("Added.");
+            console.log("Added new note with title: " + title);
             res.status(200);
             res.redirect('/');
 
@@ -49,7 +49,17 @@ module.exports.notesFindAll = function (req, res){
 };
 
 module.exports.notesUpdateOne = function (req, res){
-    sendJsonResponse(res, 200, {"status" : "success"});
+    var id = req.params.id;
+    var title = req.params.title;
+    console.log("Updating note named " + title + ' for user ' + id);
+    db.collection('users', function(err,collection){
+        collection.update({ $and: [{'_id': id}, {"notes.title": title}]}, {$set: {"notes.title": req.body.title, "notes.contents": req.body.contents}},function(err,item) {
+            console.log("Updated.");
+            res.status(200);
+            res.redirect('/');
+        })
+
+    })
 };
 module.exports.notesDeleteOne = function (req, res){
     var id = req.params.id;
