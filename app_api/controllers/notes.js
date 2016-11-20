@@ -24,7 +24,17 @@ db.open(function(err, db) {
 
 
 module.exports.notesCreateOne = function (req, res){
-    sendJsonResponse(res, 200, {"status" : "success"});
+    var id = req.params.id;
+    var title = req.params.title;
+    console.log("Creating new note for " + id);
+    db.collection('notesList', function (err, collection) {
+        collection.update({'_id': id}, {$push: {"notes" : {"title":title, "contents": ""} }}, {w:1}, function(err,item){
+            console.log("Added.");
+            res.status(200);
+            res.redirect('/');
+
+        })
+    })
 };
 
 module.exports.notesFindAll = function (req, res){
