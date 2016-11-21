@@ -1,6 +1,9 @@
 extends layout
 
+
 html
+    block link
+        -var selected = 'Editor';
     head
 
 
@@ -8,17 +11,14 @@ block content
     .container(style="padding-top: 70px;")
         .row
             .col-md-12
-                textarea(name="message" rows="3" cols="94") Title
+                textarea(name="message" rows="3" cols="94")= notes.title
         .row
             .col-md-12
-                textarea(name="message" rows="10" cols="94") Que pasa?
+                textarea(name="message" rows="10" cols="94")= notes.contents
         .row
             .col-md-6
                 a.btn.btn-default(role="button" onclick="return confirm('Please click on OK to continue.');")
                     p Save&raquo
             .col-md-6
                 a.btn.btn-default(role="button" onclick="return confirm('Please click on OK to continue.');")
-                    p Delete&raquo
-
-
-
+                    p Back&raquo

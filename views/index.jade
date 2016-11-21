@@ -1,6 +1,9 @@
 extends layout
 
+
 html
+  block link
+    -var selected = 'Home';
   head
 
 
@@ -18,7 +21,6 @@ block content
           input.form-control(type='password')
         .checkbox
           label Remember me
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          input(type='checkbox')
-        button.btn.btn-default(type='submit' formaction='/locations') Log In
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  input(type='checkbox')
+button.btn.btn-default(type='submit' formaction='/locations') Log In

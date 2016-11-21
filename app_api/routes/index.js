@@ -7,9 +7,6 @@ var ctrlUsers = require('../controllers/users');
 var ctrlNotes = require('../controllers/notes');
 var ctrlIndex = require('../controllers/index');
 
-/* GET home page. */
-router.get('/', ctrlIndex.userList);
-
 //API
 
 //users
