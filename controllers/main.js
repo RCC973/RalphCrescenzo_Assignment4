@@ -7,6 +7,16 @@ var request = require('request');
 module.exports.index = function(req, res){
     res.render('index', { title: 'Home'});
 };
+/* save changes on editor page*/
+var rendereditorSave = function (req, res){
+    res.render('editor', {
+        title: 'Edit Note',
+        notes: responseBody
+    });
+};
+module.exports.editorSave = function(req, res){
+    rendereditorSave(req, res);
+};
 
 /* editor page render variable*/
 var renderEditorpage = function(req, res, responseBody){
